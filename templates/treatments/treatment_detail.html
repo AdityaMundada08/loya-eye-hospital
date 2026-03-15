@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}{{ treatment.meta_title|default:treatment.name }} | {{ site_settings.hospital_name }}{% endblock %}
+{% block meta_description %}{{ treatment.meta_description|default:treatment.short_description|truncatewords:30 }}{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "{{ treatment.name }}",
+  "description": "{{ treatment.short_description|truncatewords:50 }}",
+  "procedureType": "{{ treatment.name }}"
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'core:home' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'treatments:treatment_list' %}">Treatments</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ treatment.name }}</li>
+    </ol>
+  </nav>
+
+  <header class="mb-5">
+    <h1 class="mb-3">{{ treatment.name }}</h1>
+    {% if treatment.short_description %}
+      <p class="lead text-muted">{{ treatment.short_description }}</p>
+    {% endif %}
+    {% if treatment.featured_image %}
+      <img src="{{ treatment.featured_image.url }}" alt="{{ treatment.name }}" class="img-fluid rounded shadow mt-3" loading="lazy" width="800" height="450" style="object-fit: cover;">
+    {% endif %}
+  </header>
+
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      {% if treatment.detailed_description %}
+      <section class="mb-5">
+        <h2 class="h4 mb-3">What is {{ treatment.name }}?</h2>
+        <div class="text-muted">{{ treatment.detailed_description|linebreaks }}</div>
+      </section>
+      {% endif %}
+
+      {% if treatment.symptoms %}
+      <section class="mb-5">
+        <h2 class="h4 mb-3">Symptoms</h2>
+        <div class="text-muted">{{ treatment.symptoms|linebreaks }}</div>
+      </section>
+      {% endif %}
+
+      {% if treatment.procedure_details %}
+      <section class="mb-5">
+        <h2 class="h4 mb-3">Treatment Process & Why Early Diagnosis Matters</h2>
+        <div class="text-muted">{{ treatment.procedure_details|linebreaks }}</div>
+      </section>
+      {% endif %}
+
+      {% if treatment.benefits %}
+      <section class="mb-5">
+        <h2 class="h4 mb-3">Benefits</h2>
+        <div class="text-muted">{{ treatment.benefits|linebreaks }}</div>
+      </section>
+      {% endif %}
+
+      {% if treatment.why_choose_us %}
+      <section class="mb-5">
+        <h2 class="h4 mb-3">Why Choose Us for {{ treatment.name }}?</h2>
+        <div class="text-muted">{{ treatment.why_choose_us|linebreaks }}</div>
+      </section>
+      {% endif %}
+
+      {% if treatment.faqs.exists %}
+      <section class="mb-5">
+        <h2 class="h4 mb-3">FAQs</h2>
+        <div class="accordion" id="faqAccordion">
+          {% for faq in treatment.faqs.all %}
+            <div class="accordion-item">
+              <h3 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-{{ faq.id }}" aria-expanded="false" aria-controls="faq-{{ faq.id }}">
+                  {{ faq.question }}
+                </button>
+              </h3>
+              <div id="faq-{{ faq.id }}" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body text-muted">{{ faq.answer|linebreaks }}</div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+      {% endif %}
+
+      <section class="border rounded p-4 bg-light text-center">
+        <h2 class="h5 mb-3">Book Your Consultation</h2>
+        <p class="text-muted small mb-3">Get in touch for {{ treatment.name }} consultation.</p>
+        <a class="btn btn-primary me-2" href="{% url 'core:contact' %}#appointment">Book Appointment</a>
+        {% if site_settings.whatsapp_number %}
+          <a class="btn btn-whatsapp" href="https://wa.me/{{ site_settings.whatsapp_number|cut:' ' }}?text=Hi, I want to know more about {{ treatment.name }}" target="_blank" rel="noopener">WhatsApp</a>
+        {% endif %}
+      </section>
+    </div>
+  </div>
+</div>
+{% endblock %}

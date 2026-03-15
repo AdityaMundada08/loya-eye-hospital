@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Contact & Book Appointment | {{ site_settings.hospital_name }}{% endblock %}
+{% block meta_description %}Contact {{ site_settings.hospital_name }}. Phone, WhatsApp, address. Book eye checkup appointment online.{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <h1 class="mb-4">Contact & Book Appointment</h1>
+
+  <div class="row g-4">
+    <div class="col-lg-5">
+      <div class="p-4 border rounded bg-light">
+        <h5>Get in Touch</h5>
+        {% if site_settings.phone_number %}
+          <p class="mb-2"><strong>Phone:</strong><br><a href="tel:{{ site_settings.phone_number|cut:' ' }}">{{ site_settings.phone_number }}</a></p>
+        {% endif %}
+        {% if site_settings.whatsapp_number %}
+          <p class="mb-2"><strong>WhatsApp:</strong><br><a class="btn btn-whatsapp btn-sm" href="https://wa.me/{{ site_settings.whatsapp_number|cut:' ' }}" target="_blank" rel="noopener">Chat on WhatsApp</a></p>
+        {% endif %}
+        {% if site_settings.email %}
+          <p class="mb-2"><strong>Email:</strong><br><a href="mailto:{{ site_settings.email }}">{{ site_settings.email }}</a></p>
+        {% endif %}
+        {% if site_settings.address %}
+          <p class="mb-2"><strong>Address:</strong><br>{{ site_settings.address }}</p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="col-lg-7">
+      <h2 id="appointment" class="h4 mb-3">Book Appointment</h2>
+      <p class="text-muted small">Fill the form and we will contact you shortly.</p>
+      <form method="post" action="{% url 'core:contact' %}" class="border rounded p-4">
+        {% csrf_token %}
+        <div class="row g-3">
+          <div class="col-12"><label class="form-label">Name *</label>{{ form.name }}</div>
+          <div class="col-12"><label class="form-label">Phone *</label>{{ form.phone }}{% if form.phone.errors %}<div class="text-danger small">{{ form.phone.errors }}</div>{% endif %}</div>
+          <div class="col-12"><label class="form-label">Email (optional)</label>{{ form.email }}</div>
+          <div class="col-12"><label class="form-label">Preferred date (optional)</label>{{ form.preferred_date }}</div>
+          <div class="col-12"><label class="form-label">Message (optional)</label>{{ form.message }}</div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

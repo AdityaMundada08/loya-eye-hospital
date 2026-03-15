@@ -1,0 +1,31 @@
+<footer class="bg-dark text-white py-5 mt-5">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <h5 class="mb-3">{{ site_settings.hospital_name }}</h5>
+        <p class="small text-white-50">{{ site_settings.about_short|default:"Quality eye care in your city." }}</p>
+        {% if site_settings.whatsapp_number %}
+          <a class="btn btn-whatsapp btn-sm" href="https://wa.me/{{ site_settings.whatsapp_number|cut:' ' }}" target="_blank" rel="noopener">Chat on WhatsApp</a>
+        {% endif %}
+      </div>
+      <div class="col-lg-4">
+        <h6 class="mb-3">Quick Links</h6>
+        <ul class="list-unstyled small">
+          <li><a href="{% url 'core:about' %}">About Us</a></li>
+          <li><a href="{% url 'treatments:treatment_list' %}">Treatments</a></li>
+          <li><a href="{% url 'core:contact' %}">Contact & Appointment</a></li>
+          <li><a href="{% url 'core:location' %}">Location & Timings</a></li>
+          <li><a href="{% url 'core:faq' %}">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h6 class="mb-3">Contact</h6>
+        {% if site_settings.phone_number %}<p class="mb-1"><a href="tel:{{ site_settings.phone_number|cut:' ' }}">{{ site_settings.phone_number }}</a></p>{% endif %}
+        {% if site_settings.email %}<p class="mb-1"><a href="mailto:{{ site_settings.email }}">{{ site_settings.email }}</a></p>{% endif %}
+        {% if site_settings.address %}<p class="mb-1 small text-white-50">{{ site_settings.address }}</p>{% endif %}
+      </div>
+    </div>
+    <hr class="my-4 border-secondary">
+    <p class="small text-center text-white-50 mb-0">&copy; {{ site_settings.hospital_name }}. All rights reserved.</p>
+  </div>
+</footer>

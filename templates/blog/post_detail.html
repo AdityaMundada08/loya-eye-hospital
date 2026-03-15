@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.meta_title|default:post.title }} | {{ site_settings.hospital_name }}{% endblock %}
+{% block meta_description %}{{ post.meta_description|default:post.excerpt|truncatewords:30 }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'core:home' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'blog:post_list' %}">Blog</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ post.title }}</li>
+    </ol>
+  </nav>
+
+  <article class="row">
+    <div class="col-lg-8 mx-auto">
+      <h1 class="mb-3">{{ post.title }}</h1>
+      {% if post.published_at %}<p class="text-muted small mb-3">{{ post.published_at|date:"d M Y" }}</p>{% endif %}
+      {% if post.featured_image %}
+        <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="img-fluid rounded mb-4" loading="lazy" width="800" height="450" style="object-fit: cover;">
+      {% endif %}
+      <div class="content">{{ post.content|linebreaks }}</div>
+      <div class="mt-5 text-center">
+        <a class="btn btn-primary" href="{% url 'core:contact' %}#appointment">Book Appointment</a>
+      </div>
+    </div>
+  </article>
+</div>
+{% endblock %}

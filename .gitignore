@@ -1,0 +1,12 @@
+.env
+*.pyc
+__pycache__/
+*.py[cod]
+db.sqlite3
+media/
+staticfiles/
+.venv/
+venv/
+*.log
+.DS_Store
+loya-eye-hospital-token.txt

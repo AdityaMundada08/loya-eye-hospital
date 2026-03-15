@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{% block title %}{{ site_settings.meta_title_default|default:site_settings.hospital_name }}{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}{{ site_settings.meta_description_default }}{% endblock %}">
+  <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
+  <!-- Bootstrap 5 - single CDN, cached, no heavy JS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <style>
+    :root {
+      --primary: #0d6efd;
+      --hospital-blue: #0066b3;
+      --trust-green: #198754;
+    }
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .navbar-brand { font-weight: 700; }
+    .btn-whatsapp { background: #25D366; color: #fff; border: none; }
+    .btn-whatsapp:hover { background: #20bd5a; color: #fff; }
+    .hero-bg { background: linear-gradient(135deg, #e8f4fc 0%, #f0f8ff 100%); }
+    footer a { color: rgba(255,255,255,.8); text-decoration: none; }
+    footer a:hover { color: #fff; }
+    .faq-item { border-bottom: 1px solid #dee2e6; }
+    img { max-width: 100%; height: auto; }
+  </style>
+  {% block extra_css %}{% endblock %}
+  {% block schema %}{% endblock %}
+</head>
+<body class="d-flex flex-column min-vh-100">
+  {% include "includes/navbar.html" %}
+
+  <main class="flex-grow-1">
+    {% if messages %}
+      <div class="container mt-2">
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+
+  {% include "includes/footer.html" %}
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

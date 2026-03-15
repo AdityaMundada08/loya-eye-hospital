@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}About Us | {{ site_settings.hospital_name }}{% endblock %}
+{% block meta_description %}About our eye hospital and doctors. Experience, qualifications, NABH certifications. Trusted eye care in {{ site_settings.city_name }}.{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <h1 class="mb-4">About {{ site_settings.hospital_name }}</h1>
+  <p class="lead text-muted">{{ site_settings.about_short }}</p>
+  {% if site_settings.meta_description_default %}
+    <p>{{ site_settings.meta_description_default }}</p>
+  {% endif %}
+
+  {% if doctors %}
+  <h2 class="mt-5 mb-4" id="doctors">Our Doctors</h2>
+  <div class="row g-4">
+    {% for doc in doctors %}
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border shadow-sm">
+          {% if doc.profile_image %}
+            <img src="{{ doc.profile_image.url }}" class="card-img-top" alt="{{ doc.name }}" loading="lazy" height="280" style="object-fit: cover;">
+          {% else %}
+            <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 280px;"><span class="display-3 text-muted">👨‍⚕️</span></div>
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ doc.name }}</h5>
+            <p class="small text-muted mb-1">{{ doc.designation }}</p>
+            <p class="small mb-1">{{ doc.qualification }}</p>
+            <p class="small fw-bold">{{ doc.experience_years }}+ years experience</p>
+            {% if doc.specialization %}<p class="small">Specialization: {{ doc.specialization }}</p>{% endif %}
+            {% if doc.bio %}<p class="small">{{ doc.bio|truncatewords:40 }}</p>{% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if achievements %}
+  <h2 class="mt-5 mb-4">Certifications & Achievements</h2>
+  <div class="row g-4">
+    {% for a in achievements %}
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border">
+          {% if a.image %}<img src="{{ a.image.url }}" class="card-img-top" alt="{{ a.title }}" loading="lazy" height="180" style="object-fit: cover;">{% endif %}
+          <div class="card-body">
+            <h6 class="card-title">{{ a.title }}{% if a.year %} ({{ a.year }}){% endif %}</h6>
+            {% if a.description %}<p class="small text-muted">{{ a.description }}</p>{% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="mt-5 text-center">
+    <a class="btn btn-primary" href="{% url 'core:contact' %}#appointment">Book Appointment</a>
+  </div>
+</div>
+{% endblock %}

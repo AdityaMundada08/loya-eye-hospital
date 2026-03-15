@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}FAQ - Common Questions | {{ site_settings.hospital_name }}{% endblock %}
+{% block meta_description %}Frequently asked questions about eye care, cataract surgery, LASIK, cost and more. {{ site_settings.hospital_name }}.{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <h1 class="mb-4">Frequently Asked Questions</h1>
+  <p class="lead text-muted">Common questions about eye care and our services.</p>
+
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      {% for faq in faqs %}
+        <div class="faq-item py-3">
+          <h2 class="h5 mb-2">{{ faq.question }}</h2>
+          <div class="text-muted">{{ faq.answer|linebreaks }}</div>
+        </div>
+      {% empty %}
+        <p class="text-muted">FAQs will appear here. Add them from Admin → Core → FAQs.</p>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="text-center mt-5">
+    <a class="btn btn-primary" href="{% url 'core:contact' %}#appointment">Book Appointment</a>
+  </div>
+</div>
+{% endblock %}

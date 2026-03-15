@@ -1,0 +1,5 @@
+/* Loya Eye Hospital - minimal custom CSS. Mobile-first, fast. */
+body { font-size: 1rem; }
+@media (max-width: 768px) {
+  .hero-bg .display-5 { font-size: 1.5rem; }
+}

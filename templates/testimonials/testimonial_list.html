@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Patient Testimonials | {{ site_settings.hospital_name }}{% endblock %}
+{% block meta_description %}What our patients say about {{ site_settings.hospital_name }}. Real testimonials from {{ site_settings.city_name }}.{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <h1 class="mb-4">Patient Testimonials</h1>
+  <p class="lead text-muted mb-5">What our patients say about us.</p>
+
+  <div class="row g-4">
+    {% for t in testimonials %}
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border shadow-sm">
+          {% if t.photo %}
+            <img src="{{ t.photo.url }}" class="card-img-top" alt="{{ t.patient_name }}" loading="lazy" height="220" style="object-fit: cover;">
+          {% endif %}
+          <div class="card-body">
+            <div class="mb-2">{% for i in "12345" %}{% if forloop.counter <= t.rating %}★{% else %}☆{% endif %}{% endfor %}</div>
+            <p class="card-text">{{ t.content }}</p>
+            <p class="small text-muted mb-0">— {{ t.patient_name }}{% if t.patient_city %}, {{ t.patient_city }}{% endif %}</p>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <div class="col-12 text-center text-muted py-5">No testimonials yet. Add from Admin.</div>
+    {% endfor %}
+  </div>
+
+  {% if is_paginated %}
+    <nav class="mt-4">
+      <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>{% endif %}
+        <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+        {% if page_obj.has_next %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>{% endif %}
+      </ul>
+    </nav>
+  {% endif %}
+</div>
+{% endblock %}
