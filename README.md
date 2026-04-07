@@ -9,3 +9,7 @@ Building a website for Loya Eye Hospital. This website will display all the deta
 - **DB:** PostgreSQL
 - **Frontend:** Django Templates + Bootstrap 5 (CDN)
 - **CMS:** Django Admin
+
+
+## New tasks to do:
+Add settings.py file to run correctly
