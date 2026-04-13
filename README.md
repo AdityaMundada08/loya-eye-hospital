@@ -12,4 +12,4 @@ Building a website for Loya Eye Hospital. This website will display all the deta
 
 
 ## New tasks to do:
-Add settings.py file to run correctly
+~Add settings.py file to run correctly~
