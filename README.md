@@ -11,5 +11,5 @@ Building a website for Loya Eye Hospital. This website will display all the deta
 - **CMS:** Django Admin
 
 
-## New tasks to do:
-~Add settings.py file to run correctly~
+## Under Testing:
+Doctor Akash is checking the core features
