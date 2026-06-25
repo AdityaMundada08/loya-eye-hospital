@@ -15,3 +15,6 @@ Building a website for Loya Eye Hospital. This website will display all the deta
 ~Doctor Akash is checking the core features~ Done ✅
 
 Website will be tested on production using Cloud provider for next week (from 15th June 2026)
+
+## To-do
+Add multiple Indian languages translation toggle
