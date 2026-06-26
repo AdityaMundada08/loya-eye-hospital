@@ -57,9 +57,11 @@ except ModuleNotFoundError:
 
 
 SECRET_KEY = os.environ.get("SECRET_KEY", "insecure-dev-secret-key")
-DEBUG = _get_bool("DEBUG", default=False)
+# DEBUG = _get_bool("DEBUG", default=False)
+DEBUG = True
 
-ALLOWED_HOSTS = _split_csv(os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1"))
+# ALLOWED_HOSTS = _split_csv(os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1"))
+ALLOWED_HOSTS = ['your-app-name.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 INSTALLED_APPS = [
