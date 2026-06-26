@@ -74,7 +74,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.sitemaps",
 
-    # Local apps (use explicit AppConfig to avoid needing __init__.py files)
+    # Note: Local apps (use explicit AppConfig to avoid needing __init__.py files)
     "apps.core.apps.CoreConfig",
     "apps.treatments.apps.TreatmentsConfig",
     "apps.testimonials.apps.TestimonialsConfig",
@@ -127,7 +127,8 @@ DATABASE_URL = os.environ.get("DATABASE_URL", "")
 
 if DATABASE_URL:
     if _HAS_DJ_DATABASE_URL:
-        # Production-style DATABASE_URL (Render/DO/Heroku)
+        # Production-style 
+        # If database in added: DATABASE_URL (Render/DO/Heroku)
         DATABASES = {
             "default": dj_database_url.parse(
                 DATABASE_URL,
@@ -136,7 +137,7 @@ if DATABASE_URL:
             )
         }
     else:
-        # dj_database_url isn't installed in this environment.
+        # If the dj_database_url isn't installed in this environment.
         # Fall back to sqlite so the project can still start.
         DATABASES = {
             "default": {
