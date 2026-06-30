@@ -11,6 +11,7 @@
     <p>{{ site_settings.meta_description_default }}</p>
   {% endif %}
 
+  <!-- Doctors display -->
   {% if doctors %}
   <h2 class="mt-5 mb-4" id="doctors">Our Doctors</h2>
   <div class="row g-4">
@@ -36,6 +37,7 @@
   </div>
   {% endif %}
 
+  <!-- If any achievements, it'll be displayed here -->
   {% if achievements %}
   <h2 class="mt-5 mb-4">Certifications & Achievements</h2>
   <div class="row g-4">
@@ -53,6 +55,7 @@
   </div>
   {% endif %}
 
+  <!-- Whatsapp appointment booking button -->
   <div class="mt-5 text-center">
     <a class="btn btn-primary" href="{% url 'core:contact' %}#appointment">Book Appointment</a>
   </div>
