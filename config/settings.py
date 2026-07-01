@@ -56,11 +56,13 @@ except ModuleNotFoundError:
     _HAS_WHITENOISE = False
 
 
+# Do change this secret key and keep it secret and safe!
 SECRET_KEY = os.environ.get("SECRET_KEY", "insecure-dev-secret-key")
+## Do not run DEBUG = TRUE and 127.0.0.1 in production
 # DEBUG = _get_bool("DEBUG", default=False)
-DEBUG = True
-
 # ALLOWED_HOSTS = _split_csv(os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1"))
+## For testing purposes only!
+DEBUG = True
 ALLOWED_HOSTS = ['your-app-name.herokuapp.com', 'localhost', '127.0.0.1']
 
 
